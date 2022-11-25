@@ -3,11 +3,12 @@ import { commerce } from './lib/commerce';
 // import Navbar from './components/Navbar/Navbar';
 // import Products from './components/Products/Products';
 
-import { Products, Navbar } from './components';
+import { Products, Navbar, Cart } from './components';
 
 const App = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
+
     const fetchProducts = async () => {
         const { data } = await commerce.products.list();
 
@@ -21,6 +22,7 @@ const App = () => {
     const handleAddToCart = async (productID, quantity) => {
         const item = await commerce.cart.add(productID, quantity);
         setCart(item.cart);
+
     }
 
     useEffect(() => {
@@ -33,6 +35,7 @@ const App = () => {
         <div>
             <Navbar totalItems={cart.total_items} />
             <Products products={products} onAddToCart={handleAddToCart} />
+            {/* <Cart cart={cart} /> */}
         </div>
     )
 }
